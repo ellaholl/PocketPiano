@@ -10,6 +10,7 @@ hot_cross_buns = [("E", 3), ("D", 2), ("C", 1), ("E", 3), ("D", 2), ("C", 1), ("
 def collect_press() -> int:
     """Detecting if any finger has been pressed, returns 0 if none has been pressed"""
     # TODO: figure out how to define this
+    # WARNING: make sure this doesn't get confused when multiple sensors are pressed at once
 
 def collect_song() -> str:
     """Determine which song the user wants to play through finger presses"""
@@ -37,7 +38,7 @@ def set_finger_led(note: Tuple[str, int]) -> None:
     """Update LED finger with color representing the note that should be pressed"""
     return None
 
-def main():
+def loop():
 
     # user must select song to start the process
     song = collect_song()
@@ -47,7 +48,7 @@ def main():
         set_finger_led(note) # make this setting optional when starting song for range of difficulty?
 
         while collect_press() != note(1):
-            if collect_press() != 0:
+            if collect_press() != 0: # If a press is made and it's not the correct one...
                 set_main_led(False)
 
         set_main_led(True)
